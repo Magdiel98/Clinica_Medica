@@ -3,6 +3,7 @@ package com.example.clinica.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.clinica.dto.consulta.ConsultaRequestDTO;
 import com.example.clinica.dto.consulta.ConsultaResponseDTO;
@@ -11,6 +12,15 @@ import com.example.clinica.enums.StatusConsulta;
 import com.example.clinica.repository.ConsultaRepository;
 import com.example.clinica.repository.MedicoRepository;
 import com.example.clinica.repository.PacienteRepository;
+
+
+
+/*
+ * Use o Transactional quando for:
+ * Gravar Dados;
+ * Alterar Dados;
+ * Remover Dados.
+ * */
 
 @Service
 public class ConsultaService {
@@ -29,6 +39,7 @@ public class ConsultaService {
 		this.medicoRepository = medicoRepository;
 	}
 	
+	@Transactional
 	public Consulta agendar(ConsultaRequestDTO dto) {
 		Consulta consulta = new Consulta();
 		consulta.setDataConsulta(dto.data());

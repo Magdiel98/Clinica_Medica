@@ -14,6 +14,8 @@ import com.example.clinica.dto.medico.MedicoRequestDTO;
 import com.example.clinica.dto.medico.MedicoResponseDTO;
 import com.example.clinica.service.MedicoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/medicos")
 public class MedicoController {
@@ -26,7 +28,7 @@ public class MedicoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void criar(@RequestBody MedicoRequestDTO dto) {
+	public void criar(@RequestBody @Valid MedicoRequestDTO dto) {
 		service.salvar(dto);
 	}
 	

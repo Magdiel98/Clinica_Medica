@@ -14,6 +14,8 @@ import com.example.clinica.dto.consulta.ConsultaRequestDTO;
 import com.example.clinica.dto.consulta.ConsultaResponseDTO;
 import com.example.clinica.service.ConsultaService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/consultas")
 public class ConsultaController {
@@ -25,7 +27,7 @@ public class ConsultaController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void agendar(@RequestBody ConsultaRequestDTO dto) {
+	public void agendar(@RequestBody @Valid ConsultaRequestDTO dto) {
 		service.agendar(dto);
 	}
 	

@@ -3,12 +3,24 @@ package com.example.clinica.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.clinica.dto.paciente.PacienteRequestDTO;
 import com.example.clinica.dto.paciente.PacienteResponseDTO;
 import com.example.clinica.entity.Paciente;
 import com.example.clinica.entity.TelefonePaciente;
 import com.example.clinica.repository.PacienteRepository;
+
+
+
+
+/*
+ * Use o Transactional quando for:
+ * Gravar Dados;
+ * Alterar Dados;
+ * Remover Dados.
+ * */
+
 
 @Service
 public class PacienteService {
@@ -19,6 +31,8 @@ public class PacienteService {
 		this.repository = repository;
 	}
 	
+	
+	@Transactional
 	public Paciente salvar(PacienteRequestDTO dto) {
 		Paciente paciente = new Paciente();
 		paciente.setNomePaciente(dto.nome());
