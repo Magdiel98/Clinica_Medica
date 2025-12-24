@@ -1,3 +1,8 @@
 spring:
   application:
     name: clinica
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clinica
+    username: postgres
+    password: 12345

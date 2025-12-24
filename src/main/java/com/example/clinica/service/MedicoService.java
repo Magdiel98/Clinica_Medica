@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.clinica.dto.medico.MedicoRequestDTO;
+import com.example.clinica.dto.medico.MedicoResponseDTO;
 import com.example.clinica.entity.Medico;
 import com.example.clinica.entity.TelefoneMedico;
 import com.example.clinica.repository.MedicoRepository;
@@ -35,5 +36,10 @@ public class MedicoService {
 		
 		medico.setTelefones(telefones);
 		return repository.save(medico);
+	}
+	
+	public List<MedicoResponseDTO> retornar(){
+		return repository.findAll().stream()
+				.map(MedicoResponseDTO::new).toList();
 	}
 }

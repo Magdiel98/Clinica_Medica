@@ -1,8 +1,11 @@
 package com.example.clinica.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.clinica.dto.consulta.ConsultaRequestDTO;
+import com.example.clinica.dto.consulta.ConsultaResponseDTO;
 import com.example.clinica.entity.Consulta;
 import com.example.clinica.enums.StatusConsulta;
 import com.example.clinica.repository.ConsultaRepository;
@@ -37,5 +40,10 @@ public class ConsultaService {
 		consulta.setMedico(medicoRepository.findById(dto.medicoId()).orElseThrow());
 		
 		return consultaRepository.save(consulta);
+	}
+	
+	public List<ConsultaResponseDTO> retornar(){
+		return consultaRepository.findAll().stream()
+				.map(ConsultaResponseDTO::new).toList();
 	}
 }
