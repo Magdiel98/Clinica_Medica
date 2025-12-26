@@ -2,7 +2,7 @@ package com.example.clinica.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.clinica.dto.consulta.ConsultaRequestDTO;
 import com.example.clinica.dto.consulta.ConsultaResponseDTO;
 import com.example.clinica.dto.consulta.ConsultaUpdateDTO;
-import com.example.clinica.entity.Consulta;
 import com.example.clinica.service.ConsultaService;
 
 import jakarta.validation.Valid;
@@ -33,14 +31,15 @@ public class ConsultaController {
 	}
 	
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public void agendar(@RequestBody @Valid ConsultaRequestDTO dto) {
+	public ResponseEntity<ConsultaResponseDTO> agendar(@RequestBody @Valid ConsultaRequestDTO dto) {
 		service.agendar(dto);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping
-	public List<ConsultaResponseDTO> exibir(){
-		return service.retornar();
+	public ResponseEntity<List<ConsultaResponseDTO>> exibir(){
+		return ResponseEntity.ok(service.retornar());
 	}
 	
 	@PatchMapping("/{id}")
@@ -49,8 +48,8 @@ public class ConsultaController {
 			@RequestBody ConsultaUpdateDTO dto
 			)
 	{
-		Consulta consulta = service.modificar(id, dto);
-		return ResponseEntity.ok(new ConsultaResponseDTO(consulta));
+		service.modificar(id, dto);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping("inativar/{id}")
@@ -60,7 +59,8 @@ public class ConsultaController {
 	}
 	
 	@PutMapping("ativar/{id}")
-	public void ativar(@PathVariable Long id) {
+	public ResponseEntity<ConsultaResponseDTO> ativar(@PathVariable Long id) {
 		service.reativar(id);
+		return ResponseEntity.noContent().build();
 	}
 }
