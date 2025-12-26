@@ -60,6 +60,10 @@ public class MedicoService {
 				.map(MedicoResponseDTO::new).toList();
 	}
 	
+	public Medico detalhado(Long id) {
+		return repository.getReferenceById(id);
+	}
+	
 	@Transactional
 	public void reativar(Long id){
 		var medico = repository.getReferenceById(id);

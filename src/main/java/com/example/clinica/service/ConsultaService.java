@@ -62,6 +62,10 @@ public class ConsultaService {
 				.map(ConsultaResponseDTO::new).toList();
 	}
 	
+	public Consulta detalhado(Long id) {
+		return consultaRepository.getReferenceById(id);
+	}
+	
 	@Transactional
 	public void reativar(Long id){
 		var consulta = consultaRepository.getReferenceById(id);

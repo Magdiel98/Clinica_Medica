@@ -42,6 +42,12 @@ public class PacienteController {
 		return ResponseEntity.ok(service.retornar());
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<PacienteResponseDTO> detalhar(@PathVariable Long id){
+		var paciente = service.detalhado(id);
+		return ResponseEntity.ok(new PacienteResponseDTO(paciente));
+	}
+	
 	@PatchMapping("/{id}")
 	public ResponseEntity<PacienteResponseDTO> atualizar(
 			@PathVariable Long id,

@@ -43,6 +43,12 @@ public class ConsultaController {
 		return ResponseEntity.ok(service.retornar());
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<ConsultaResponseDTO> detalhar(@PathVariable Long id){
+		var consulta = service.detalhado(id);
+		return ResponseEntity.ok(new ConsultaResponseDTO(consulta));
+	}
+	
 	@PatchMapping("/{id}")
 	public ResponseEntity<ConsultaResponseDTO> atualizar(
 			@PathVariable Long id, 

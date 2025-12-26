@@ -60,6 +60,10 @@ public class PacienteService {
 				.map(PacienteResponseDTO::new).toList();
 	}
 	
+	public Paciente detalhado(Long id) {
+		return repository.getReferenceById(id);
+	}
+	
 	@Transactional
 	public void reativar(Long id){
 		var paciente = repository.getReferenceById(id);
