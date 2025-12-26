@@ -2,6 +2,7 @@ package com.example.clinica.entity;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,9 @@ public class Paciente {
 	private String nomePaciente;
 	private String emailPaciente;
 	private String cpf;
+	
+	@Column(nullable = false)
+	private boolean ativo = true;
 	
 	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TelefonePaciente> telefones;
@@ -76,6 +80,17 @@ public class Paciente {
 	public void setTelefones(List<TelefonePaciente> telefones) {
 		this.telefones = telefones;
 	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 	
+	public void ativar() {
+		this.setAtivo(true);
+	}
 	
 }

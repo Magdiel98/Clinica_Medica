@@ -7,11 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.clinica.dto.consulta.ConsultaRequestDTO;
 import com.example.clinica.dto.consulta.ConsultaResponseDTO;
+import com.example.clinica.dto.consulta.ConsultaUpdateDTO;
 import com.example.clinica.entity.Consulta;
 import com.example.clinica.enums.StatusConsulta;
 import com.example.clinica.repository.ConsultaRepository;
 import com.example.clinica.repository.MedicoRepository;
 import com.example.clinica.repository.PacienteRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 
 
@@ -54,7 +57,51 @@ public class ConsultaService {
 	}
 	
 	public List<ConsultaResponseDTO> retornar(){
-		return consultaRepository.findAll().stream()
+		return consultaRepository.findAllByAtivoTrue().stream()
 				.map(ConsultaResponseDTO::new).toList();
+	}
+	
+	@Transactional
+	public void reativar(Long id){
+		var consulta = consultaRepository.getReferenceById(id);
+		consulta.ativar();
+	}
+	
+	@Transactional
+	public Consulta modificar(Long id, ConsultaUpdateDTO dto) {
+		Consulta consulta = consultaRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Consulta não encontrada"));
+		
+		if(dto.data() != null) {
+			consulta.setDataConsulta(dto.data());
+		}
+		
+		if(dto.hora() != null) {
+			consulta.setHoraConsulta(dto.hora());
+		}
+		
+		if(dto.status() != null) {
+			consulta.setStatusConsulta(dto.status());
+		}
+		
+		if(dto.medicoId() != null) {
+			consulta.setMedico(
+					medicoRepository.findById(dto.medicoId())
+						.orElseThrow(() -> 
+						new IllegalArgumentException("Médico não encontrado"))
+					);
+		}
+		
+		return consulta;		
+	}
+	
+	
+	@Transactional
+	public void cancelar(Long id) {
+		Consulta consulta = consultaRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException());
+		
+		consulta.setAtivo(false);
+		consulta.setStatusConsulta(StatusConsulta.CANCELADA);
 	}
 }

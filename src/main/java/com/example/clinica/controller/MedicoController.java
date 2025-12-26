@@ -3,8 +3,12 @@ package com.example.clinica.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -35,5 +39,16 @@ public class MedicoController {
 	@GetMapping
 	public List<MedicoResponseDTO> exibir(){
 		return service.retornar();
+	}
+	
+	@DeleteMapping("inativar/{id}")
+	public ResponseEntity<Void> inativar(@PathVariable Long id) {
+		service.cancelar(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping("ativar/{id}")
+	public void ativar(@PathVariable Long id) {
+		service.reativar(id);
 	}
 }

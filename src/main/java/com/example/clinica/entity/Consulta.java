@@ -5,6 +5,7 @@ import java.time.LocalTime;
 
 import com.example.clinica.enums.StatusConsulta;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -25,6 +26,9 @@ public class Consulta {
 	
 	private LocalDate dataConsulta; 
 	private LocalTime horaConsulta;
+	
+	@Column(nullable = false)
+	private boolean ativo = true;
 	
 	@Enumerated(EnumType.STRING)
 	private StatusConsulta statusConsulta;
@@ -48,7 +52,6 @@ public class Consulta {
 	}
 
 	public Consulta() {
-		
 	}
 
 	public Long getIdConsulta() {
@@ -97,9 +100,19 @@ public class Consulta {
 
 	public void setMedico(Medico medico) {
 		this.medico = medico;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	} 
 	
-	
+	public void ativar() {
+		this.setAtivo(true);
+	}
 	
 	
 }

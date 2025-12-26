@@ -4,15 +4,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.example.clinica.dto.medico.MedicoRequestDTO;
 import com.example.clinica.dto.medico.MedicoResponseDTO;
+import com.example.clinica.dto.medico.MedicoUpdateDTO;
 import com.example.clinica.entity.Medico;
 import com.example.clinica.entity.TelefoneMedico;
 import com.example.clinica.repository.MedicoRepository;
 
-
-
+import jakarta.persistence.EntityNotFoundException;
 
 
 /*
@@ -24,11 +23,14 @@ import com.example.clinica.repository.MedicoRepository;
 
 @Service
 public class MedicoService {
+
+    
 	
 	private final MedicoRepository repository;
 	
 	public MedicoService(MedicoRepository repository) {
 		this.repository = repository;
+
 	}
 	
 	
@@ -53,7 +55,58 @@ public class MedicoService {
 	}
 	
 	public List<MedicoResponseDTO> retornar(){
-		return repository.findAll().stream()
+		return repository.findAllByAtivoTrue().stream()
 				.map(MedicoResponseDTO::new).toList();
+	}
+	
+	@Transactional
+	public void reativar(Long id){
+		var medico = repository.getReferenceById(id);
+		medico.ativar();
+	}
+	
+	
+	@Transactional
+	public Medico modificar(Long id, MedicoUpdateDTO dto) {
+		Medico medico = repository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Médico não encontrado"));
+
+		
+		if(dto.nome() != null){
+			medico.setNomeMedico(dto.nome());
+		}
+		
+		if(dto.email() != null) {
+			medico.setEmailMedico(dto.email());
+		}
+		
+		if(dto.crm() != null) {
+			medico.setCrm(dto.crm());
+		}
+		
+		if(dto.telefones() != null) {
+			medico.getTelefones().clear();
+			
+			List<TelefoneMedico> novosTelefones = dto.telefones().stream()
+					.map(t -> {
+						TelefoneMedico tel = new TelefoneMedico();
+						tel.setTelefoneMedico(t);
+						tel.setMedico(medico);
+						return tel;
+					})
+					.toList();
+			medico.getTelefones().addAll(novosTelefones);
+		}
+		
+		return medico; 
+	}
+	
+	
+	@Transactional
+	public void cancelar(Long id) {
+		Medico medico = repository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException());
+		
+		medico.setAtivo(false);
 	}
 }
