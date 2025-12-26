@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.util.UriComponentsBuilder;
 import com.example.clinica.dto.paciente.PacienteRequestDTO;
 import com.example.clinica.dto.paciente.PacienteResponseDTO;
 import com.example.clinica.dto.paciente.PacienteUpdateDTO;
@@ -30,10 +30,11 @@ public class PacienteController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<PacienteResponseDTO> criar(@RequestBody @Valid PacienteRequestDTO dto) {
-		service.salvar(dto);
+	public  ResponseEntity<PacienteResponseDTO> criar(@RequestBody @Valid PacienteRequestDTO dto, UriComponentsBuilder uriBuilder) {
 		
-		return ResponseEntity.noContent().build();
+		var pac = service.salvar(dto);
+		var uri = uriBuilder.path("medicos/{id}").buildAndExpand(pac.getIdPaciente()).toUri();
+		return ResponseEntity.created(uri).body(new PacienteResponseDTO(pac));
 	}
 	
 	@GetMapping

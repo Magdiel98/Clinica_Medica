@@ -53,7 +53,8 @@ public class ConsultaService {
 		
 		consulta.setMedico(medicoRepository.findById(dto.medicoId()).orElseThrow());
 		
-		return consultaRepository.save(consulta);
+		consultaRepository.save(consulta);
+		return consulta; 
 	}
 	
 	public List<ConsultaResponseDTO> retornar(){

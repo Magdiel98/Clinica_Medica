@@ -51,7 +51,8 @@ public class MedicoService {
 				}).toList();
 		
 		medico.setTelefones(telefones);
-		return repository.save(medico);
+		repository.save(medico);
+		return medico;
 	}
 	
 	public List<MedicoResponseDTO> retornar(){

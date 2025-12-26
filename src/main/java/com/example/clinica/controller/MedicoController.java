@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.clinica.dto.medico.MedicoRequestDTO;
 import com.example.clinica.dto.medico.MedicoResponseDTO;
@@ -31,9 +32,11 @@ public class MedicoController {
 	}
 	
 	@PostMapping
-	public  ResponseEntity<MedicoResponseDTO> criar(@RequestBody @Valid MedicoRequestDTO dto) {
-		service.salvar(dto);
-		return ResponseEntity.noContent().build();
+	public  ResponseEntity<MedicoResponseDTO> criar(@RequestBody @Valid MedicoRequestDTO dto, UriComponentsBuilder uriBuilder) {
+		
+		var med = service.salvar(dto);
+		var uri = uriBuilder.path("medicos/{id}").buildAndExpand(med.getIdMedico()).toUri();
+		return ResponseEntity.created(uri).body(new MedicoResponseDTO(med));
 	}
 	
 	@GetMapping

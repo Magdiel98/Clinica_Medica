@@ -51,7 +51,8 @@ public class PacienteService {
 				}).toList();
 		paciente.setTelefones(telefones);
 		
-		return repository.save(paciente);
+		repository.save(paciente);
+		return paciente;
 	}
 	
 	public List<PacienteResponseDTO> retornar() {

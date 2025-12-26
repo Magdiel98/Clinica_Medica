@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.clinica.dto.consulta.ConsultaRequestDTO;
 import com.example.clinica.dto.consulta.ConsultaResponseDTO;
@@ -31,10 +32,10 @@ public class ConsultaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ConsultaResponseDTO> agendar(@RequestBody @Valid ConsultaRequestDTO dto) {
-		service.agendar(dto);
-		
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<ConsultaResponseDTO> agendar(@RequestBody @Valid ConsultaRequestDTO dto, UriComponentsBuilder uriBuilder) {
+		var cons = service.agendar(dto);
+		var uri = uriBuilder.path("consultas/{id}").buildAndExpand(cons.getIdConsulta()).toUri();
+		return ResponseEntity.created(uri).body(new ConsultaResponseDTO(cons));
 	}
 	
 	@GetMapping
