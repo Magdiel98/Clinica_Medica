@@ -34,7 +34,7 @@ public class PacienteController {
 	public  ResponseEntity<PacienteResponseDTO> criar(@RequestBody @Valid PacienteRequestDTO dto, UriComponentsBuilder uriBuilder) {
 		
 		var pac = service.salvar(dto);
-		var uri = uriBuilder.path("medicos/{id}").buildAndExpand(pac.getIdPaciente()).toUri();
+		var uri = uriBuilder.path("pacientes/{id}").buildAndExpand(pac.getIdPaciente()).toUri();
 		return ResponseEntity.created(uri).body(new PacienteResponseDTO(pac));
 	}
 	
