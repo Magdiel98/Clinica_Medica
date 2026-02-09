@@ -38,6 +38,7 @@ To use this project, clone the repository to your local machine and import it in
 
 Endpoints: 
 
+### Endpoint GET
 ### GET Doctor
 
 `GET http://localhost:8080/medicos` - Retrieve a list of all registered doctors. 
@@ -79,6 +80,50 @@ Endpoints:
 [
   {
     "id": 1,
+    "nome": "José",
+    "email": "josé@gmail.com",
+    "cpf": "129.020.092-04",
+    "telefones": [
+      "(99)99999-9999"
+    ]
+  }
+]
+`
+### Endpoint POST
+### POST Doctor
+`POST http://localhost:8080/medicos` - Register a new doctor into the Database
+
+`
+[  
+  {
+    "nome": "Dr. Rangel Gomes",
+    "email": "rangelgomes@gmail.com",
+    "crm": "CRM/RN 345678",
+    "telefones": [
+        "(22)22222-2222"
+    ]
+  }
+]
+`
+
+### POST Appointments
+`POST http://localhost:8080/consultas` - Register a new appointment into the Database
+
+`[
+  {
+     "data": "2026-02-10",
+    "hora": "14:30",
+    "pacienteId": "1",
+    "medicoId": "1"
+  }
+]
+`
+
+### POST Patients
+`POST http://localhost:8080/pacientes` - Register a new patient into the Database
+`
+[  
+  {
     "nome": "José",
     "email": "josé@gmail.com",
     "cpf": "129.020.092-04",
