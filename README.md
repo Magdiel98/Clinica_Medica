@@ -42,7 +42,7 @@ Endpoints:
 
 `GET http://localhost:8080/medicos` - Retrieve a list of all registered doctors. 
 
-``
+`
 [
   {
     "id": 1,
@@ -54,13 +54,13 @@ Endpoints:
     ]
   }
 ]
+`
 
 
 ### GET Appointments
 `GET http://localhost:8080/consultas` - Retrieve a list of all registered appointments.
 
-``
-[
+`[
   {
     "id": 1,
     "data": "2026-02-10",
@@ -70,11 +70,12 @@ Endpoints:
     "nomeMedico": "Dr. Firmino Alves"
   }
 ]
+`
 
 ### GET Patients
 `GET http://localhost:8080/pacientes` - Retrieve a list of all registered patients.
 
-``
+`
 [
   {
     "id": 1,
@@ -86,6 +87,7 @@ Endpoints:
     ]
   }
 ]
+`
 
 ## Contributing 
 
