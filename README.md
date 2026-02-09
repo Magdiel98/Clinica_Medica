@@ -43,50 +43,50 @@ Endpoints:
 `GET http://localhost:8080/medicos` - Retrieve a list of all registered doctors. 
 
 `
-[
-  {
-    "id": 1,
-    "nome": "Dr. Firmino Alves",
-    "email": "firminoalves@gmail.com",
-    "crm": "CRM/RN 123456",
-    "telefones": [
-      "(88)88888-8888"
-    ]
-  }
-]
+[  
+    {  
+        "id": 1,  
+        "nome": "Dr. Firmino Alves",  
+        "email": "firminoalves@gmail.com",  
+        "crm": "CRM/RN 123456",  
+        "telefones": [  
+            "(88)88888-8888"  
+            ]  
+            }  
+            ]
 `
 
 
 ### GET Appointments
 `GET http://localhost:8080/consultas` - Retrieve a list of all registered appointments.
 
-`[
-  {
-    "id": 1,
-    "data": "2026-02-10",
-    "hora": "14:30:00",
-    "status": "AGENDADA",
-    "nomePaciente": "José",
-    "nomeMedico": "Dr. Firmino Alves"
-  }
-]
+`[  
+    {  
+        "id": 1,  
+        "data": "2026-02-10",  
+        "hora": "14:30:00",  
+        "status": "AGENDADA",  
+        "nomePaciente": "José",  
+        "nomeMedico": "Dr. Firmino Alves"  
+        }  
+        ]
 `
 
 ### GET Patients
 `GET http://localhost:8080/pacientes` - Retrieve a list of all registered patients.
 
 `
-[
-  {
-    "id": 1,
-    "nome": "José",
-    "email": "josé@gmail.com",
-    "cpf": "129.020.092-04",
-    "telefones": [
-      "(99)99999-9999"
-    ]
-  }
-]
+[  
+    {  
+        "id": 1,  
+        "nome": "José",  
+        "email": "josé@gmail.com",  
+        "cpf": "129.020.092-04",  
+        "telefones": [  
+            "(99)99999-9999"  
+            ]  
+            }  
+            ]
 `
 
 ## Contributing 
