@@ -35,6 +35,8 @@ spring:
 ## Usage
 
 To use this project, clone the repository to your local machine and import it into your IDE (such as Spring Tool Suite 4).
+Or, if you want use this project online you can access this link: https://clinica-medica-8pva.onrender.com. 
+In the following endpoints below you can use the link above instead of localhost. 
 
 Endpoints: 
 
