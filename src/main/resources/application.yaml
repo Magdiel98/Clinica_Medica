@@ -3,5 +3,6 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-server:
-  port: ${PORT:8080}
+    driver-class-name: org.postgresql.Driver 
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
