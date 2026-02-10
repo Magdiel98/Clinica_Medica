@@ -55,6 +55,7 @@ public class PacienteService {
 		return paciente;
 	}
 	
+	
 	public List<PacienteResponseDTO> retornar() {
 		return repository.findAllByAtivoTrue().stream()
 				.map(PacienteResponseDTO::new).toList();
